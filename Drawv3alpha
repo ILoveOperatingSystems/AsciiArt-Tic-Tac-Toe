@@ -1,0 +1,85 @@
+//Drawv3alpha
+
+void DrawBoard() {
+    //create art class ascii
+    struct asciiArt {
+        char topline[6];
+        char midline[6];
+        char bottomline[6];
+    } Xart, Oart, Blank;
+    //create the X object
+    strcpy(Xart.topline, "X   X");
+    strcpy(Xart.midline, "  X  ");
+    strcpy(Xart.bottomline, "X   X");
+    //create the O object
+    strcpy(Oart.topline, " OOO ");
+    strcpy(Oart.midline, "O   O");
+    strcpy(Oart.bottomline, " OOO ");
+    //make blank spot object
+    strcpy(Blank.topline, "     ");
+    strcpy(Blank.midline, "     ");
+    strcpy(Blank.bottomline, "     ");
+
+    //clear screen to prep for printing
+    system("clear");
+
+    //===✨Pointer Magic✨===
+    //create spots "class"
+    //numbered left to right then top to bottom
+    struct asciiArt * spots[9] = {NULL};
+
+    //set spots 0..2 to correct art object arrording to boardstate.
+    for (short i = 0; i < 3; i++) {
+        switch (board.rowOne[i]) {
+            case 'X':
+                spots[i] = &(Xart);
+                break;
+            case 'O':
+                spots[i] = &Oart;
+                break;
+            default:
+                spots[i] = &Blank;
+        }
+    }
+    //now 3..5
+        for (short i = 0; i < 3; i++) {
+        switch (board.rowTwo[i]) {
+            case 'X':
+                spots[i+3] = &(Xart);
+                break;
+            case 'O':
+                spots[i+3] = &Oart;
+                break;
+            default:
+                spots[i+3] = &Blank;
+        }
+    }
+    //now 6..8
+        for (short i = 0; i < 3; i++) {
+        switch (board.rowThree[i]) {
+            case 'X':
+                spots[i+6] = &(Xart);
+                break;
+            case 'O':
+                spots[i+6] = &Oart;
+                break;
+            default:
+                spots[i+6] = &Blank;
+        }
+    }
+
+       //Print this psycho beast
+    printf(" ====================================\n");
+    printf("|   %s   |   %s   |   %s   |\n", spots[0]->topline, spots[1]->topline, spots[2]->topline);
+    printf("|   %s   |   %s   |   %s   |\n", spots[0]->midline, spots[1]->midline, spots[2]->midline);
+    printf("|   %s   |   %s   |   %s   |\n", spots[0]->bottomline, spots[1]->bottomline, spots[2]->bottomline);
+    printf(" ====================================\n");
+    printf("|   %s   |   %s   |   %s   |\n", spots[3]->topline, spots[4]->topline, spots[5]->topline);
+    printf("|   %s   |   %s   |   %s   |\n", spots[3]->midline, spots[4]->midline, spots[5]->midline);
+    printf("|   %s   |   %s   |   %s   |\n", spots[3]->bottomline, spots[4]->bottomline, spots[5]->bottomline);
+    printf(" ====================================\n");
+    printf("|   %s   |   %s   |   %s   |\n", spots[6]->topline, spots[7]->topline, spots[8]->topline);
+    printf("|   %s   |   %s   |   %s   |\n", spots[6]->midline, spots[7]->midline, spots[8]->midline);
+    printf("|   %s   |   %s   |   %s   |\n", spots[6]->bottomline, spots[7]->bottomline, spots[8]->bottomline);
+    printf(" ====================================\n");
+}
